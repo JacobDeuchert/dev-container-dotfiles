@@ -4,6 +4,7 @@ Repository containing dotfiles that get installed into devcontainers.
 
 ## Features
 
+- **Installs Node.js LTS via nvm** if `npm`/`node` is not already present in the container
 - **Checks if npm is installed** and automatically installs `opencode-ai` as a global package
 - **Copies opencode configuration files** into `~/.config/opencode`
 
@@ -29,8 +30,13 @@ Alternatively, you can reference it in your `devcontainer.json`:
 
 ## What Gets Installed
 
+### Node.js LTS (via nvm)
+If `npm`/`node` is **not** detected in your devcontainer, the script will automatically:
+1. Download and install [nvm](https://github.com/nvm-sh/nvm)
+2. Use nvm to install and activate the latest Node.js LTS release
+
 ### npm Package: opencode-ai
-If npm is detected in your devcontainer, the script will automatically install the `opencode-ai` package globally using:
+Once npm is available, the script will automatically install the `opencode-ai` package globally using:
 ```bash
 npm install -g opencode-ai
 ```

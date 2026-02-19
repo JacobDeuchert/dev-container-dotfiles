@@ -7,6 +7,25 @@ set -e
 
 echo "Starting dotfiles installation..."
 
+# Install Node.js LTS via nvm if npm/node is not found
+if ! command -v npm &> /dev/null; then
+    echo "npm/node not found, installing Node.js LTS via nvm..."
+
+    # Install nvm
+    export NVM_DIR="${HOME}/.nvm"
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+    # Load nvm into the current shell session
+    # shellcheck source=/dev/null
+    [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
+
+    # Install and use Node.js LTS
+    nvm install --lts
+    nvm use --lts
+
+    echo "Node.js LTS installed via nvm successfully"
+fi
+
 # Check if npm is installed
 if command -v npm &> /dev/null; then
     echo "npm is installed, proceeding with opencode-ai installation..."
