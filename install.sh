@@ -25,8 +25,12 @@ copy_opencode_config() {
     local target_dir="${HOME}/.config/opencode"
     
     if [ -d "$source_dir" ]; then
-        cp -r "$source_dir/"* "$target_dir/" 2>/dev/null || true
-        echo "opencode configuration files copied successfully"
+        # Copy all contents including hidden files
+        if cp -r "$source_dir/." "$target_dir/" 2>/dev/null; then
+            echo "opencode configuration files copied successfully"
+        else
+            echo "Warning: Failed to copy some opencode configuration files"
+        fi
     else
         echo "No opencode configuration files found in dotfiles repository"
     fi
